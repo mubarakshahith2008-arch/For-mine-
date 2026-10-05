@@ -1,217 +1,202 @@
 ```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<main id="story-container" class="hidden">
 
-<title>Happy Birthday ❤️</title>
+    <!-- Scene 1 -->
+    <section class="scene active-scene">
 
-<link rel="stylesheet" href="style.css">
+        <h1>Happy Birthday ❤️</h1>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <h2>[HER_NAME]</h2>
 
-</head>
-
-<body>
-
-<!-- Animated Background -->
-<div id="stars"></div>
-<div id="hearts-container"></div>
-<div id="petals-container"></div>
-
-<!-- Music -->
-<audio id="bgMusic" loop>
-    <source src="music/[music].mp3" type="audio/mpeg">
-</audio>
-
-<!-- Music Toggle -->
-<button id="musicToggle" class="music-btn">
-    🎵
-</button>
-
-<!-- Intro Screen -->
-<section id="intro-screen" class="intro-screen">
-
-    <div class="intro-content">
-
-        <h3 class="intro-small">
-            For Someone Special ❤️
-        </h3>
-
-        <h1 class="intro-title">
-            Happy Birthday
-        </h1>
-
-        <h2 class="intro-name">
-            [HER_NAME]
-        </h2>
-
-        <p class="intro-text">
-            This is not just a website.
-            It is a collection of memories,
-            emotions,
-            and everything I wanted to tell you.
+        <p>
+            Tonight isn't just your birthday.
+            It's a celebration of the person
+            who changed my life.
         </p>
 
-        <button id="enterBtn" class="main-btn">
-            Begin The Journey ✨
+        <button class="next-btn">
+            Continue ❤️
         </button>
 
-    </div>
+    </section>
 
-</section>
+    <!-- Scene 2 -->
 
-<!-- Main Content -->
-<main id="main-content" class="hidden">
+    <section class="scene">
 
-    <!-- Hero Section -->
+        <h1>Instagram Strangers ✨</h1>
 
-    <section class="hero-section">
+        <p>
+            We met as strangers on Instagram.
 
-        <div class="hero-overlay"></div>
+            Neither of us knew how important
+            that first conversation would become.
 
-        <div class="hero-content">
+            Looking back now,
+            I never imagined one message
+            could change so much.
+        </p>
 
-            <h1 class="birthday-title">
-                Happy Birthday ❤️
-            </h1>
-
-            <h2 class="name-title">
-                [HER_NAME]
-            </h2>
-
-            <p class="hero-message">
-                The best things in life are often unexpected.
-                Meeting you was one of them.
-            </p>
-
-        </div>
+        <button class="next-btn">
+            Continue ❤️
+        </button>
 
     </section>
 
-    <!-- Counter Section -->
+    <!-- Scene 3 -->
 
-    <section class="glass-card counters">
+    <section class="scene">
 
-        <div class="counter-box">
-            <h3>Days Together</h3>
-            <span id="relationshipDays">0</span>
-        </div>
+        <h1>26 April ❤️</h1>
 
-        <div class="counter-box">
-            <h3>Hours Together</h3>
-            <span id="relationshipHours">0</span>
-        </div>
+        <p>
+            Most people remember dates.
 
-        <div class="counter-box">
-            <h3>Minutes Together</h3>
-            <span id="relationshipMinutes">0</span>
-        </div>
+            I remember moments.
 
-    </section>
+            And 26 April became one of
+            the best things that happened
+            in my life.
+        </p>
 
-    <!-- Story Timeline -->
-
-    <section class="timeline-section">
-
-        <h2 class="section-title">
-            Our Story ✨
-        </h2>
-
-        <div class="timeline">
-
-            <div class="timeline-item">
-                <h3>Instagram Strangers</h3>
-
-                <p>
-                    We met as strangers on Instagram.
-                    At that moment,
-                    neither of us knew how important that conversation would become.
-                </p>
-            </div>
-
-            <div class="timeline-item">
-                <h3>26 April ❤️</h3>
-
-                <p>
-                    Most people remember dates.
-                    I remember moments.
-                    And 26 April became one of the best moments of my life.
-                </p>
-            </div>
-
-            <div class="timeline-item">
-                <h3>The Beginning</h3>
-
-                <p>
-                    People often talk about life-changing experiences.
-                    For me,
-                    meeting you was one of them.
-                </p>
-            </div>
-
-            <div class="timeline-item">
-                <h3>Today</h3>
-
-                <p>
-                    If someone asked me what matters most,
-                    my answer would be simple.
-                </p>
-
-                <p class="highlight">
-                    Your presence is enough for me.
-                </p>
-            </div>
-
-        </div>
+        <button class="next-btn">
+            Continue ❤️
+        </button>
 
     </section>
 
-    <!-- Memory Gallery -->
+    <!-- Scene 4 -->
 
-    <section class="gallery-section">
+    <section class="scene">
 
-        <h2 class="section-title">
-            Our Memories 📸
-        </h2>
+        <img
+        src="images/IMG-20251013-WA0021.jpg"
+        class="story-photo">
 
-        <div class="gallery-grid">
+        <blockquote>
 
-            <div class="gallery-card">
-                <img src="images/IMG-20251013-WA0021.jpg" alt="Memory 1">
+            Distance doesn't make me miss you less.
 
-                <div class="gallery-caption">
-                    A moment worth remembering ❤️
-                </div>
-            </div>
+            It makes every moment with you
+            more valuable.
 
-            <div class="gallery-card">
-                <img src="images/IMG_20260501_021026_029.jpg" alt="Memory 2">
+        </blockquote>
 
-                <div class="gallery-caption">
-                    Every picture tells a story ✨
-                </div>
-            </div>
-
-            <div class="gallery-card">
-                <img src="images/IMG_20260829_210124_069.jpg" alt="Memory 3">
-
-                <div class="gallery-caption">
-                    Thank you for these memories ❤️
-                </div>
-            </div>
-
-        </div>
+        <button class="next-btn">
+            Continue ❤️
+        </button>
 
     </section>
 
-    <!-- Continue with Letter, Wallpaper Reveal, Final Surprise, Fireworks and Overlay in the next part -->
-    
+    <!-- Scene 5 -->
+
+    <section class="scene">
+
+        <img
+        src="images/IMG_20260501_021026_029.jpg"
+        class="story-photo">
+
+        <blockquote>
+
+            No matter how many miles separate us,
+
+            my heart always knows
+            where home is.
+
+        </blockquote>
+
+        <button class="next-btn">
+            Continue ❤️
+        </button>
+
+    </section>
+
+    <!-- Scene 6 -->
+
+    <section class="scene">
+
+        <img
+        src="images/IMG_20260829_210124_069.jpg"
+        class="story-photo">
+
+        <blockquote>
+
+            Some relationships
+            are tested by distance.
+
+            Ours is strengthened by it.
+
+        </blockquote>
+
+        <button class="next-btn">
+            Continue ❤️
+        </button>
+
+    </section>
+
+    <!-- Scene 7 -->
+
+    <section class="scene">
+
+        <h1>A Letter For You ❤️</h1>
+
+        <div id="typewriter">
+
+        </div>
+
+        <button class="next-btn">
+            Continue ❤️
+        </button>
+
+    </section>
+
+    <!-- Scene 8 -->
+
+    <section class="scene">
+
+        <img
+        src="images/file_00000000f3f47208bfd42682f109e520.png"
+        class="wallpaper-photo">
+
+        <p class="wallpaper-text">
+
+            This picture stayed
+            on my screen,
+
+            just like you stayed
+            in my heart.
+
+        </p>
+
+        <button class="next-btn">
+            Continue ❤️
+        </button>
+
+    </section>
+
+    <!-- Scene 9 -->
+
+    <section class="scene">
+
+        <h1>
+            Your Presence
+            Is Enough For Me ❤️
+        </h1>
+
+        <p>
+            Some days I don't need answers.
+
+            Some days I don't need solutions.
+
+            Knowing you're there
+            is enough.
+        </p>
+
+        <button id="finalBtn">
+            Final Surprise 🎆
+        </button>
+
+    </section>
+
 </main>
-
-<script src="script.js"></script>
-
-</body>
-</html>
 ```
