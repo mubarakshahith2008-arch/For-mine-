@@ -1,9 +1,24 @@
-```javascript id="8k5y7w"
-// ====================================
-// PREMIUM BIRTHDAY WEBSITE SCRIPT
-// ====================================
+```javascript id="s6o7t2"
+// =====================================
+// STORY MODE BIRTHDAY WEBSITE
+// =====================================
 
-// ELEMENTS
+// ---------- ELEMENTS ----------
+
+const scenes =
+document.querySelectorAll(".scene");
+
+const nextButtons =
+document.querySelectorAll(".next-btn");
+
+const finalBtn =
+document.getElementById("finalBtn");
+
+const bgMusic =
+document.getElementById("bgMusic");
+
+const musicToggle =
+document.getElementById("musicToggle");
 
 const enterBtn =
 document.getElementById("enterBtn");
@@ -12,19 +27,14 @@ const introScreen =
 document.getElementById("intro-screen");
 
 const mainContent =
-document.getElementById("main-content");
+document.getElementById("story-container");
 
-const bgMusic =
-document.getElementById("bgMusic");
-
-const musicToggle =
-document.getElementById("musicToggle");
-
+let currentScene = 0;
 let musicPlaying = false;
 
-// ====================================
+// =====================================
 // ENTER WEBSITE
-// ====================================
+// =====================================
 
 if(enterBtn){
 
@@ -32,43 +42,36 @@ if(enterBtn){
         "click",
         () => {
 
-            introScreen.style.opacity = "0";
+            introScreen.style.opacity =
+            "0";
 
             setTimeout(() => {
 
-                introScreen.style.display = "none";
+                introScreen.style.display =
+                "none";
 
                 mainContent.classList.remove(
                     "hidden"
                 );
 
-            },800);
+            },700);
 
             bgMusic.play()
             .then(() => {
 
                 musicPlaying = true;
 
-                if(musicToggle){
-                    musicToggle.innerHTML =
-                    "🎵";
-                }
-
             })
-            .catch(() => {
-                console.log(
-                    "Autoplay blocked"
-                );
-            });
+            .catch(() => {});
 
         }
     );
 
 }
 
-// ====================================
-// MUSIC BUTTON
-// ====================================
+// =====================================
+// MUSIC TOGGLE
+// =====================================
 
 if(musicToggle){
 
@@ -76,16 +79,7 @@ if(musicToggle){
         "click",
         () => {
 
-            if(!musicPlaying){
-
-                bgMusic.play();
-
-                musicPlaying = true;
-
-                musicToggle.innerHTML =
-                "🎵";
-
-            }else{
+            if(musicPlaying){
 
                 bgMusic.pause();
 
@@ -94,6 +88,15 @@ if(musicToggle){
                 musicToggle.innerHTML =
                 "🔇";
 
+            }else{
+
+                bgMusic.play();
+
+                musicPlaying = true;
+
+                musicToggle.innerHTML =
+                "🎵";
+
             }
 
         }
@@ -101,176 +104,189 @@ if(musicToggle){
 
 }
 
-// ====================================
-// RELATIONSHIP COUNTER
-// STARTED: 26 APRIL 2025
-// ====================================
+// =====================================
+// SCENE NAVIGATION
+// =====================================
 
-const relationshipDate =
-new Date("2025-04-26T00:00:00");
+function showScene(index){
 
-function updateCounter(){
+    scenes.forEach(scene => {
 
-    const now =
-    new Date();
+        scene.classList.remove(
+            "active-scene"
+        );
 
-    const diff =
-    now - relationshipDate;
+    });
 
-    const days =
-    Math.floor(
-        diff /
-        (1000*60*60*24)
+    scenes[index].classList.add(
+        "active-scene"
     );
 
-    const hours =
-    Math.floor(
-        diff /
-        (1000*60*60)
-    );
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
 
-    const minutes =
-    Math.floor(
-        diff /
-        (1000*60)
-    );
-
-    document.getElementById(
-        "relationshipDays"
-    ).textContent = days;
-
-    document.getElementById(
-        "relationshipHours"
-    ).textContent = hours;
-
-    document.getElementById(
-        "relationshipMinutes"
-    ).textContent = minutes;
 }
 
-updateCounter();
+nextButtons.forEach(button => {
 
-setInterval(
-    updateCounter,
-    60000
-);
+    button.addEventListener(
+        "click",
+        () => {
 
-// ====================================
-// FLOATING HEARTS
-// ====================================
+            currentScene++;
 
-const heartsContainer =
+            if(
+                currentScene <
+                scenes.length
+            ){
+
+                showScene(
+                    currentScene
+                );
+
+            }
+
+        }
+    );
+
+});
+
+// =====================================
+// TYPEWRITER LETTER
+// =====================================
+
+const typewriter =
 document.getElementById(
-    "hearts-container"
+    "typewriter"
 );
 
-function createHeart(){
+const letter =
 
-    if(!heartsContainer) return;
+`Happy Birthday ❤️
 
-    const heart =
-    document.createElement("div");
+We met as strangers on Instagram.
 
-    heart.classList.add("heart");
+At that time,
+neither of us knew
+how important that first conversation
+would become.
 
-    heart.innerHTML =
-    Math.random() > 0.5
-    ? "❤️"
-    : "💕";
+When I think about 26 April,
+I don't just remember a date.
 
-    heart.style.left =
-    Math.random()*100 + "vw";
+I remember the beginning
+of something beautiful.
 
-    heart.style.bottom =
-    "-50px";
+It became one of the best things
+that happened in my life.
 
-    heart.style.fontSize =
-    (18 + Math.random()*22)
-    + "px";
+Distance isn't always easy.
 
-    heart.style.animationDuration =
-    (5 + Math.random()*4)
-    + "s";
+But every day,
+every memory,
+every conversation,
 
-    heartsContainer.appendChild(
-        heart
-    );
+reminds me how lucky I am
+to have you in my life.
 
-    setTimeout(() => {
+People often search
+for the perfect definition of love.
 
-        heart.remove();
+For me,
+it is simple.
 
-    },10000);
+Your presence is enough for me.
 
+Thank you for every smile.
+
+Thank you for every memory.
+
+Thank you for being you.
+
+Happy Birthday ❤️
+
+— [YOUR_NAME]`;
+
+let letterIndex = 0;
+
+function startTyping(){
+
+    if(!typewriter) return;
+
+    typewriter.innerHTML = "";
+
+    letterIndex = 0;
+
+    function type(){
+
+        if(
+            letterIndex <
+            letter.length
+        ){
+
+            typewriter.innerHTML +=
+            letter.charAt(
+                letterIndex
+            );
+
+            letterIndex++;
+
+            setTimeout(
+                type,
+                35
+            );
+
+        }
+
+    }
+
+    type();
 }
 
-setInterval(
-    createHeart,
-    400
-);
-
-// ====================================
-// SCROLL REVEAL
-// ====================================
-
-const revealElements =
-document.querySelectorAll(
-    ".timeline-item, .gallery-card, .counter-box"
-);
+// start when scene 7 opens
 
 const observer =
-new IntersectionObserver(
+new MutationObserver(() => {
 
-(entries) => {
+    if(
+        scenes[6] &&
+        scenes[6].classList.contains(
+            "active-scene"
+        )
+    ){
 
-    entries.forEach(
-        entry => {
-
-            if(entry.isIntersecting){
-
-                entry.target.style.opacity =
-                "1";
-
-                entry.target.style.transform =
-                "translateY(0)";
-            }
-
+        if(
+            typewriter.innerHTML === ""
+        ){
+            startTyping();
         }
-    );
 
-},
-{
-    threshold:0.2
-}
-);
+    }
 
-revealElements.forEach(
-    el => {
+});
 
-        el.style.opacity = "0";
-
-        el.style.transform =
-        "translateY(40px)";
-
-        el.style.transition =
-        "all 0.8s ease";
-
-        observer.observe(el);
-
+observer.observe(
+    document.body,
+    {
+        attributes:true,
+        subtree:true
     }
 );
 
-// ====================================
-// PHOTO POPUP EFFECT
-// ====================================
+// =====================================
+// PHOTO ANIMATION
+// =====================================
 
-document
-.querySelectorAll(
-".gallery-card img"
-)
-.forEach(img => {
+const photos =
+document.querySelectorAll(
+    ".story-photo, .wallpaper-photo"
+);
 
-    img.addEventListener(
+photos.forEach(photo => {
+
+    photo.addEventListener(
         "click",
         () => {
 
@@ -291,33 +307,34 @@ document
             overlay.style.display =
             "flex";
 
-            overlay.style.alignItems =
+            overlay.style.justifyContent =
             "center";
 
-            overlay.style.justifyContent =
+            overlay.style.alignItems =
             "center";
 
             overlay.style.zIndex =
             "99999";
 
-            const image =
+            const img =
             document.createElement(
                 "img"
             );
 
-            image.src = img.src;
+            img.src =
+            photo.src;
 
-            image.style.maxWidth =
+            img.style.maxWidth =
             "90%";
 
-            image.style.maxHeight =
+            img.style.maxHeight =
             "90%";
 
-            image.style.borderRadius =
+            img.style.borderRadius =
             "20px";
 
             overlay.appendChild(
-                image
+                img
             );
 
             document.body.appendChild(
@@ -338,166 +355,184 @@ document
 
 });
 
-// ====================================
-// PREMIUM FIREWORKS
-// ====================================
+// =====================================
+// FLOATING HEARTS
+// =====================================
 
-const canvas =
+const heartContainer =
 document.getElementById(
-    "fireworksCanvas"
+    "hearts-container"
 );
 
-if(canvas){
+function createHeart(){
 
-    const ctx =
-    canvas.getContext("2d");
+    if(!heartContainer) return;
 
-    canvas.width =
-    window.innerWidth;
+    const heart =
+    document.createElement("div");
 
-    canvas.height =
-    window.innerHeight;
+    heart.classList.add(
+        "heart"
+    );
 
-    let particles = [];
+    heart.innerHTML =
+    Math.random() > 0.5
+    ? "❤️"
+    : "💕";
 
-    function createFirework(){
+    heart.style.left =
+    Math.random()*100 +
+    "vw";
 
-        const x =
-        Math.random()
-        * canvas.width;
+    heart.style.bottom =
+    "-30px";
 
-        const y =
-        Math.random()
-        * canvas.height
-        * 0.6;
+    heart.style.fontSize =
+    (18 + Math.random()*22)
+    + "px";
 
-        for(let i=0;i<100;i++){
+    heart.style.animationDuration =
+    (5 + Math.random()*4)
+    + "s";
 
-            particles.push({
+    heartContainer.appendChild(
+        heart
+    );
 
-                x,
-                y,
+    setTimeout(() => {
 
-                dx:
-                (Math.random()-0.5)*10,
+        heart.remove();
 
-                dy:
-                (Math.random()-0.5)*10,
+    },10000);
 
-                life:100
+}
 
-            });
+setInterval(
+    createHeart,
+    400
+);
 
-        }
+// =====================================
+// FIREWORKS
+// =====================================
+
+function launchFireworks(){
+
+    const overlay =
+    document.createElement("div");
+
+    overlay.style.position =
+    "fixed";
+
+    overlay.style.inset =
+    "0";
+
+    overlay.style.background =
+    "rgba(0,0,0,.95)";
+
+    overlay.style.display =
+    "flex";
+
+    overlay.style.flexDirection =
+    "column";
+
+    overlay.style.justifyContent =
+    "center";
+
+    overlay.style.alignItems =
+    "center";
+
+    overlay.style.textAlign =
+    "center";
+
+    overlay.style.zIndex =
+    "999999";
+
+    overlay.innerHTML =
+
+    `
+    <h1 style="
+    color:#f7c57c;
+    font-size:4rem;
+    margin-bottom:20px;">
+    🎆 Happy Birthday 🎆
+    </h1>
+
+    <h2 style="
+    color:#ff9ebd;">
+    [HER_NAME]
+    </h2>
+
+    <p style="
+    max-width:700px;
+    margin-top:25px;
+    line-height:2;
+    color:white;">
+    Thank you for being
+    one of the most beautiful
+    parts of my life.
+
+    Your presence
+    is enough for me ❤️
+    </p>
+    `;
+
+    document.body.appendChild(
+        overlay
+    );
+
+    for(
+        let i=0;
+        i<200;
+        i++
+    ){
+
+        const sparkle =
+        document.createElement(
+            "div"
+        );
+
+        sparkle.innerHTML =
+        "✨";
+
+        sparkle.style.position =
+        "fixed";
+
+        sparkle.style.left =
+        Math.random()*100 +
+        "vw";
+
+        sparkle.style.top =
+        Math.random()*100 +
+        "vh";
+
+        sparkle.style.fontSize =
+        (10 + Math.random()*25)
+        + "px";
+
+        sparkle.style.zIndex =
+        "1000000";
+
+        document.body.appendChild(
+            sparkle
+        );
 
     }
 
-    function animate(){
+}
 
-        ctx.clearRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
+if(finalBtn){
 
-        particles.forEach(
-            (p,index)=>{
-
-                ctx.beginPath();
-
-                ctx.arc(
-                    p.x,
-                    p.y,
-                    2,
-                    0,
-                    Math.PI*2
-                );
-
-                ctx.fillStyle =
-                `rgba(
-                    255,
-                    215,
-                    120,
-                    ${p.life/100}
-                )`;
-
-                ctx.fill();
-
-                p.x += p.dx;
-
-                p.y += p.dy;
-
-                p.life--;
-
-                if(p.life <= 0){
-
-                    particles.splice(
-                        index,
-                        1
-                    );
-
-                }
-
-            }
-        );
-
-        requestAnimationFrame(
-            animate
-        );
-
-    }
-
-    animate();
-
-    setInterval(
-        createFirework,
-        3500
+    finalBtn.addEventListener(
+        "click",
+        launchFireworks
     );
 
 }
 
-// ====================================
-// TYPEWRITER MESSAGE
-// ====================================
-
-const typeTarget =
-document.getElementById(
-    "typewriter"
-);
-
-if(typeTarget){
-
-    const text =
-    "Your presence is enough for me ❤️";
-
-    let index = 0;
-
-    function type(){
-
-        if(index < text.length){
-
-            typeTarget.innerHTML +=
-            text.charAt(index);
-
-            index++;
-
-            setTimeout(
-                type,
-                80
-            );
-
-        }
-
-    }
-
-    type();
-
-}
-
-// ====================================
+// =====================================
 // CONSOLE MESSAGE
-// ====================================
+// =====================================
 
 console.log(
 "Happy Birthday ❤️"
