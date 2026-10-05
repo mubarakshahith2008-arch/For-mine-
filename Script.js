@@ -1,45 +1,118 @@
-```javascript id="c6q8zy"
-// ===============================
-// BIRTHDAY WEBSITE SCRIPT
-// ===============================
+```javascript id="8k5y7w"
+// ====================================
+// PREMIUM BIRTHDAY WEBSITE SCRIPT
+// ====================================
 
+// ELEMENTS
+
+const enterBtn =
+document.getElementById("enterBtn");
+
+const introScreen =
+document.getElementById("intro-screen");
+
+const mainContent =
+document.getElementById("main-content");
+
+const bgMusic =
+document.getElementById("bgMusic");
+
+const musicToggle =
+document.getElementById("musicToggle");
+
+let musicPlaying = false;
+
+// ====================================
 // ENTER WEBSITE
+// ====================================
 
-const enterBtn = document.getElementById("enterBtn");
-const introScreen = document.getElementById("intro-screen");
-const mainContent = document.getElementById("main-content");
-const bgMusic = document.getElementById("bgMusic");
+if(enterBtn){
 
-if (enterBtn) {
-    enterBtn.addEventListener("click", () => {
+    enterBtn.addEventListener(
+        "click",
+        () => {
 
-        introScreen.style.display = "none";
+            introScreen.style.opacity = "0";
 
-        mainContent.classList.remove("hidden");
+            setTimeout(() => {
 
-        bgMusic.play().catch(() => {
-            console.log("Autoplay blocked by browser.");
-        });
+                introScreen.style.display = "none";
 
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
+                mainContent.classList.remove(
+                    "hidden"
+                );
 
-    });
+            },800);
+
+            bgMusic.play()
+            .then(() => {
+
+                musicPlaying = true;
+
+                if(musicToggle){
+                    musicToggle.innerHTML =
+                    "🎵";
+                }
+
+            })
+            .catch(() => {
+                console.log(
+                    "Autoplay blocked"
+                );
+            });
+
+        }
+    );
+
 }
 
-// ===============================
+// ====================================
+// MUSIC BUTTON
+// ====================================
+
+if(musicToggle){
+
+    musicToggle.addEventListener(
+        "click",
+        () => {
+
+            if(!musicPlaying){
+
+                bgMusic.play();
+
+                musicPlaying = true;
+
+                musicToggle.innerHTML =
+                "🎵";
+
+            }else{
+
+                bgMusic.pause();
+
+                musicPlaying = false;
+
+                musicToggle.innerHTML =
+                "🔇";
+
+            }
+
+        }
+    );
+
+}
+
+// ====================================
 // RELATIONSHIP COUNTER
-// START DATE: 26 APRIL 2025
-// ===============================
+// STARTED: 26 APRIL 2025
+// ====================================
 
 const relationshipDate =
 new Date("2025-04-26T00:00:00");
 
-function updateRelationshipCounter() {
+function updateCounter(){
 
-    const now = new Date();
+    const now =
+    new Date();
 
     const diff =
     now - relationshipDate;
@@ -47,68 +120,53 @@ function updateRelationshipCounter() {
     const days =
     Math.floor(
         diff /
-        (1000 * 60 * 60 * 24)
+        (1000*60*60*24)
     );
 
     const hours =
     Math.floor(
         diff /
-        (1000 * 60 * 60)
+        (1000*60*60)
     );
 
     const minutes =
     Math.floor(
         diff /
-        (1000 * 60)
+        (1000*60)
     );
 
-    const dayEl =
     document.getElementById(
         "relationshipDays"
-    );
+    ).textContent = days;
 
-    const hourEl =
     document.getElementById(
         "relationshipHours"
-    );
+    ).textContent = hours;
 
-    const minuteEl =
     document.getElementById(
         "relationshipMinutes"
-    );
-
-    if(dayEl){
-        dayEl.textContent = days;
-    }
-
-    if(hourEl){
-        hourEl.textContent = hours;
-    }
-
-    if(minuteEl){
-        minuteEl.textContent = minutes;
-    }
+    ).textContent = minutes;
 }
 
-updateRelationshipCounter();
+updateCounter();
 
 setInterval(
-    updateRelationshipCounter,
+    updateCounter,
     60000
 );
 
-// ===============================
+// ====================================
 // FLOATING HEARTS
-// ===============================
+// ====================================
 
-const heartContainer =
+const heartsContainer =
 document.getElementById(
     "hearts-container"
 );
 
-function createHeart() {
+function createHeart(){
 
-    if(!heartContainer) return;
+    if(!heartsContainer) return;
 
     const heart =
     document.createElement("div");
@@ -121,155 +179,186 @@ function createHeart() {
     : "💕";
 
     heart.style.left =
-    Math.random() * 100 + "vw";
+    Math.random()*100 + "vw";
 
     heart.style.bottom =
-    "-30px";
+    "-50px";
 
     heart.style.fontSize =
-    (15 + Math.random() * 25)
+    (18 + Math.random()*22)
     + "px";
 
     heart.style.animationDuration =
-    (4 + Math.random() * 5)
+    (5 + Math.random()*4)
     + "s";
 
-    heartContainer.appendChild(
+    heartsContainer.appendChild(
         heart
     );
 
     setTimeout(() => {
+
         heart.remove();
-    }, 9000);
+
+    },10000);
+
 }
 
 setInterval(
     createHeart,
-    500
+    400
 );
 
-// ===============================
-// QUOTE SLIDER
-// ===============================
+// ====================================
+// SCROLL REVEAL
+// ====================================
 
-const quotes =
+const revealElements =
 document.querySelectorAll(
-    ".quote"
+    ".timeline-item, .gallery-card, .counter-box"
 );
 
-let quoteIndex = 0;
+const observer =
+new IntersectionObserver(
 
-if(quotes.length > 0){
+(entries) => {
 
-    setInterval(() => {
+    entries.forEach(
+        entry => {
 
-        quotes[
-            quoteIndex
-        ].classList.remove(
-            "active-quote"
-        );
+            if(entry.isIntersecting){
 
-        quoteIndex++;
+                entry.target.style.opacity =
+                "1";
 
-        if(
-            quoteIndex >=
-            quotes.length
-        ){
-            quoteIndex = 0;
-        }
-
-        quotes[
-            quoteIndex
-        ].classList.add(
-            "active-quote"
-        );
-
-    }, 4000);
-
-}
-
-// ===============================
-// GIFT BOX REVEAL
-// ===============================
-
-const giftBox =
-document.getElementById(
-    "giftBox"
-);
-
-const letterSection =
-document.getElementById(
-    "letterSection"
-);
-
-if(giftBox){
-
-    giftBox.addEventListener(
-        "click",
-        () => {
-
-            giftBox.innerHTML =
-            "💖";
-
-            if(letterSection){
-
-                letterSection
-                .classList.remove(
-                    "hidden"
-                );
-
-                letterSection
-                .scrollIntoView({
-                    behavior:"smooth"
-                });
-
+                entry.target.style.transform =
+                "translateY(0)";
             }
 
         }
     );
-}
 
-// ===============================
-// FIREWORKS SYSTEM
-// ===============================
+},
+{
+    threshold:0.2
+}
+);
+
+revealElements.forEach(
+    el => {
+
+        el.style.opacity = "0";
+
+        el.style.transform =
+        "translateY(40px)";
+
+        el.style.transition =
+        "all 0.8s ease";
+
+        observer.observe(el);
+
+    }
+);
+
+// ====================================
+// PHOTO POPUP EFFECT
+// ====================================
+
+document
+.querySelectorAll(
+".gallery-card img"
+)
+.forEach(img => {
+
+    img.addEventListener(
+        "click",
+        () => {
+
+            const overlay =
+            document.createElement(
+                "div"
+            );
+
+            overlay.style.position =
+            "fixed";
+
+            overlay.style.inset =
+            "0";
+
+            overlay.style.background =
+            "rgba(0,0,0,.95)";
+
+            overlay.style.display =
+            "flex";
+
+            overlay.style.alignItems =
+            "center";
+
+            overlay.style.justifyContent =
+            "center";
+
+            overlay.style.zIndex =
+            "99999";
+
+            const image =
+            document.createElement(
+                "img"
+            );
+
+            image.src = img.src;
+
+            image.style.maxWidth =
+            "90%";
+
+            image.style.maxHeight =
+            "90%";
+
+            image.style.borderRadius =
+            "20px";
+
+            overlay.appendChild(
+                image
+            );
+
+            document.body.appendChild(
+                overlay
+            );
+
+            overlay.addEventListener(
+                "click",
+                () => {
+
+                    overlay.remove();
+
+                }
+            );
+
+        }
+    );
+
+});
+
+// ====================================
+// PREMIUM FIREWORKS
+// ====================================
 
 const canvas =
 document.getElementById(
     "fireworksCanvas"
 );
 
-const fireworksBtn =
-document.getElementById(
-    "fireworksBtn"
-);
-
-const finalOverlay =
-document.getElementById(
-    "finalOverlay"
-);
-
-let particles = [];
-
 if(canvas){
 
     const ctx =
     canvas.getContext("2d");
 
-    function resizeCanvas(){
+    canvas.width =
+    window.innerWidth;
 
-        canvas.width =
-        window.innerWidth;
+    canvas.height =
+    window.innerHeight;
 
-        canvas.height =
-        window.innerHeight;
-    }
-
-    resizeCanvas();
-
-    window.addEventListener(
-        "resize",
-        resizeCanvas
-    );
+    let particles = [];
 
     function createFirework(){
 
@@ -282,24 +371,18 @@ if(canvas){
         * canvas.height
         * 0.6;
 
-        for(
-            let i = 0;
-            i < 80;
-            i++
-        ){
+        for(let i=0;i<100;i++){
 
             particles.push({
 
-                x:x,
-                y:y,
+                x,
+                y,
 
                 dx:
-                (Math.random()-0.5)
-                * 8,
+                (Math.random()-0.5)*10,
 
                 dy:
-                (Math.random()-0.5)
-                * 8,
+                (Math.random()-0.5)*10,
 
                 life:100
 
@@ -319,7 +402,7 @@ if(canvas){
         );
 
         particles.forEach(
-            (p,index) => {
+            (p,index)=>{
 
                 ctx.beginPath();
 
@@ -342,17 +425,18 @@ if(canvas){
                 ctx.fill();
 
                 p.x += p.dx;
+
                 p.y += p.dy;
 
                 p.life--;
 
-                if(
-                    p.life <= 0
-                ){
+                if(p.life <= 0){
+
                     particles.splice(
                         index,
                         1
                     );
+
                 }
 
             }
@@ -361,92 +445,59 @@ if(canvas){
         requestAnimationFrame(
             animate
         );
+
     }
 
     animate();
 
-    if(fireworksBtn){
-
-        fireworksBtn
-        .addEventListener(
-            "click",
-            () => {
-
-                let count = 0;
-
-                const interval =
-                setInterval(() => {
-
-                    createFirework();
-
-                    count++;
-
-                    if(count > 15){
-
-                        clearInterval(
-                            interval
-                        );
-
-                        setTimeout(() => {
-
-                            if(
-                                finalOverlay
-                            ){
-                                finalOverlay
-                                .classList
-                                .remove(
-                                    "hidden"
-                                );
-                            }
-
-                        },3000);
-
-                    }
-
-                },300);
-
-            }
-        );
-
-    }
-
-    setInterval(() => {
-
-        if(
-            Math.random()
-            > 0.85
-        ){
-            createFirework();
-        }
-
-    },3000);
-
-}
-
-// ===============================
-// CLOSE FINAL SCREEN
-// CLICK ANYWHERE
-// ===============================
-
-if(finalOverlay){
-
-    finalOverlay.addEventListener(
-        "click",
-        () => {
-
-            finalOverlay
-            .classList.add(
-                "hidden"
-            );
-
-        }
+    setInterval(
+        createFirework,
+        3500
     );
 
 }
 
-// ===============================
+// ====================================
+// TYPEWRITER MESSAGE
+// ====================================
+
+const typeTarget =
+document.getElementById(
+    "typewriter"
+);
+
+if(typeTarget){
+
+    const text =
+    "Your presence is enough for me ❤️";
+
+    let index = 0;
+
+    function type(){
+
+        if(index < text.length){
+
+            typeTarget.innerHTML +=
+            text.charAt(index);
+
+            index++;
+
+            setTimeout(
+                type,
+                80
+            );
+
+        }
+
+    }
+
+    type();
+
+}
+
+// ====================================
 // CONSOLE MESSAGE
-// ===============================
+// ====================================
 
 console.log(
 "Happy Birthday ❤️"
