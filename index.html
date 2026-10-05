@@ -12,64 +12,86 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 </head>
+
 <body>
 
-<!-- BACKGROUND EFFECTS -->
+<!-- Animated Background -->
 <div id="stars"></div>
 <div id="hearts-container"></div>
 <div id="petals-container"></div>
 
-<!-- MUSIC -->
+<!-- Music -->
 <audio id="bgMusic" loop>
-    <source src="music/song.mp3" type="audio/mpeg">
+    <source src="music/[music].mp3" type="audio/mpeg">
 </audio>
 
-<!-- INTRO SCREEN -->
+<!-- Music Toggle -->
+<button id="musicToggle" class="music-btn">
+    🎵
+</button>
+
+<!-- Intro Screen -->
 <section id="intro-screen" class="intro-screen">
 
     <div class="intro-content">
 
         <h3 class="intro-small">
-            A Special Night...
+            For Someone Special ❤️
         </h3>
 
         <h1 class="intro-title">
-            Happy Birthday ❤️
+            Happy Birthday
         </h1>
 
+        <h2 class="intro-name">
+            [HER_NAME]
+        </h2>
+
         <p class="intro-text">
-            Tonight is dedicated to someone who made my life brighter.
+            This is not just a website.
+            It is a collection of memories,
+            emotions,
+            and everything I wanted to tell you.
         </p>
 
         <button id="enterBtn" class="main-btn">
-            Enter ✨
+            Begin The Journey ✨
         </button>
 
     </div>
 
 </section>
 
-<!-- MAIN CONTENT -->
+<!-- Main Content -->
 <main id="main-content" class="hidden">
 
-    <!-- HERO -->
+    <!-- Hero Section -->
+
     <section class="hero-section">
 
-        <h1 class="birthday-title">
-            Happy Birthday
-        </h1>
+        <div class="hero-overlay"></div>
 
-        <h2 class="name-title">
-            [HER_NAME] ❤️
-        </h2>
+        <div class="hero-content">
 
-        <p class="hero-subtitle">
-            To the person who made ordinary days feel special.
-        </p>
+            <h1 class="birthday-title">
+                Happy Birthday ❤️
+            </h1>
+
+            <h2 class="name-title">
+                [HER_NAME]
+            </h2>
+
+            <p class="hero-message">
+                The best things in life are often unexpected.
+                Meeting you was one of them.
+            </p>
+
+        </div>
 
     </section>
 
-    <!-- COUNTERS -->
+    <!-- Counter Section -->
+
     <section class="glass-card counters">
 
         <div class="counter-box">
@@ -89,87 +111,65 @@
 
     </section>
 
-    <!-- STORY -->
+    <!-- Story Timeline -->
+
     <section class="timeline-section">
 
         <h2 class="section-title">
             Our Story ✨
         </h2>
 
-        <div class="timeline-item">
-            <h3>Instagram Strangers</h3>
+        <div class="timeline">
 
-            <p>
-                Two strangers met on Instagram.
-                Neither of them knew how important that conversation would become.
-            </p>
-        </div>
+            <div class="timeline-item">
+                <h3>Instagram Strangers</h3>
 
-        <div class="timeline-item">
-            <h3>26 April</h3>
-
-            <p>
-                What looked like an ordinary day became one of the best things that happened in my life.
-            </p>
-        </div>
-
-        <div class="timeline-item">
-            <h3>The Beginning</h3>
-
-            <p>
-                People often talk about life-changing moments.
-                For me, that moment was meeting you.
-            </p>
-        </div>
-
-        <div class="timeline-item">
-            <h3>Today</h3>
-
-            <p>
-                Your presence is enough for me.
-            </p>
-        </div>
-
-    </section>
-
-    <!-- QUOTES -->
-    <section class="quotes-section">
-
-        <h2 class="section-title">
-            Words From My Heart ❤️
-        </h2>
-
-        <div class="quote-slider">
-
-            <div class="quote active-quote">
-                Two strangers. One conversation. A lifetime of memories.
+                <p>
+                    We met as strangers on Instagram.
+                    At that moment,
+                    neither of us knew how important that conversation would become.
+                </p>
             </div>
 
-            <div class="quote">
-                26 April changed more than a date on a calendar.
+            <div class="timeline-item">
+                <h3>26 April ❤️</h3>
+
+                <p>
+                    Most people remember dates.
+                    I remember moments.
+                    And 26 April became one of the best moments of my life.
+                </p>
             </div>
 
-            <div class="quote">
-                Your presence is enough for me.
+            <div class="timeline-item">
+                <h3>The Beginning</h3>
+
+                <p>
+                    People often talk about life-changing experiences.
+                    For me,
+                    meeting you was one of them.
+                </p>
             </div>
 
-            <div class="quote">
-                You became my favorite part of every day.
-            </div>
+            <div class="timeline-item">
+                <h3>Today</h3>
 
-            <div class="quote">
-                Some people enter your life and quietly change everything.
-            </div>
+                <p>
+                    If someone asked me what matters most,
+                    my answer would be simple.
+                </p>
 
-            <div class="quote">
-                Meeting you was the best surprise life ever gave me.
+                <p class="highlight">
+                    Your presence is enough for me.
+                </p>
             </div>
 
         </div>
 
     </section>
 
-    <!-- PHOTO MEMORIES -->
+    <!-- Memory Gallery -->
+
     <section class="gallery-section">
 
         <h2 class="section-title">
@@ -179,206 +179,36 @@
         <div class="gallery-grid">
 
             <div class="gallery-card">
-                <img src="images/IMG-20251013-WA0021.jpg" alt="Memory">
-                <p>
-                    A memory that always makes me smile ❤️
-                </p>
+                <img src="images/IMG-20251013-WA0021.jpg" alt="Memory 1">
+
+                <div class="gallery-caption">
+                    A moment worth remembering ❤️
+                </div>
             </div>
 
             <div class="gallery-card">
-                <img src="images/IMG_20260501_021026_029.jpg" alt="Memory">
-                <p>
-                    Every memory with you is special ✨
-                </p>
+                <img src="images/IMG_20260501_021026_029.jpg" alt="Memory 2">
+
+                <div class="gallery-caption">
+                    Every picture tells a story ✨
+                </div>
             </div>
 
             <div class="gallery-card">
-                <img src="images/IMG_20260829_210124_069.jpg" alt="Memory">
-                <p>
-                    Thank you for being part of my life ❤️
-                </p>
+                <img src="images/IMG_20260829_210124_069.jpg" alt="Memory 3">
+
+                <div class="gallery-caption">
+                    Thank you for these memories ❤️
+                </div>
             </div>
 
         </div>
 
     </section>
 
-    <!-- GIFT -->
-    <section class="gift-section">
-
-        <h2 class="section-title">
-            A Birthday Surprise 🎁
-        </h2>
-
-        <div id="giftBox" class="gift-box">
-            🎁
-        </div>
-
-        <p>
-            Click the gift to open your surprise.
-        </p>
-
-    </section>
-
-    <!-- LETTER -->
-    <section id="letterSection" class="glass-card letter-section hidden">
-
-        <h2>
-            A Letter For You ❤️
-        </h2>
-
-        <div class="letter-content">
-
-            <p>
-                Happy Birthday, [HER_NAME].
-            </p>
-
-            <p>
-                We started as strangers on Instagram.
-                Neither of us knew how important that first conversation would become.
-            </p>
-
-            <p>
-                When I think about 26 April,
-                I don't just remember a date.
-                I remember the beginning of something beautiful.
-            </p>
-
-            <p>
-                It became one of the few moments I can honestly say made my life better.
-            </p>
-
-            <p>
-                People often search for the right words to describe love.
-                For me, it is much simpler.
-            </p>
-
-            <p class="highlight">
-                Your presence is enough for me.
-            </p>
-
-            <p>
-                Some days I don't need advice.
-                Some days I don't need solutions.
-                Some days I don't even need long conversations.
-            </p>
-
-            <p>
-                Knowing you're there is enough.
-            </p>
-
-            <p>
-                Thank you for every smile,
-                every conversation,
-                and every memory.
-            </p>
-
-            <p>
-                Happy Birthday ❤️
-            </p>
-
-            <p class="signature">
-                — [YOUR_NAME]
-            </p>
-
-        </div>
-
-    </section>
-
-    <!-- SPECIAL PHOTO -->
-    <section class="special-photo-section">
-
-        <h2 class="section-title">
-            One More Thing ❤️
-        </h2>
-
-        <div class="special-photo-card">
-
-            <img
-            src="images/file_00000000f3f47208bfd42682f109e520.png"
-            alt="Special Photo">
-
-            <p>
-                This picture stayed with me longer than any wallpaper.
-            </p>
-
-            <p>
-                Not because it's just a picture,
-                but because it reminds me of someone very special.
-            </p>
-
-            <p>
-                Some things quietly become part of everyday life.
-                This picture became one of those things.
-            </p>
-
-            <p class="highlight">
-                And the person behind it became one of the best things that ever happened to me. ❤️
-            </p>
-
-        </div>
-
-    </section>
-
-    <!-- FINAL -->
-    <section class="final-section">
-
-        <div class="glass-card final-card">
-
-            <h2>
-                Happy Birthday ❤️
-            </h2>
-
-            <p>
-                Of all the people in the world,
-                I'm grateful that our paths crossed.
-            </p>
-
-            <p>
-                You are one of the best things that ever happened to me.
-            </p>
-
-            <h3>
-                Happy Birthday, [HER_NAME]
-            </h3>
-
-            <button id="fireworksBtn" class="main-btn">
-                One Last Surprise 🎆
-            </button>
-
-        </div>
-
-    </section>
-
+    <!-- Continue with Letter, Wallpaper Reveal, Final Surprise, Fireworks and Overlay in the next part -->
+    
 </main>
-
-<!-- FIREWORKS -->
-<canvas id="fireworksCanvas"></canvas>
-
-<!-- FINAL OVERLAY -->
-<div id="finalOverlay" class="hidden">
-
-    <div class="overlay-content">
-
-        <h1>
-            Happy Birthday ❤️
-        </h1>
-
-        <h2>
-            [HER_NAME]
-        </h2>
-
-        <p>
-            Thank you for being one of the most beautiful parts of my life.
-        </p>
-
-        <p>
-            Your presence is enough for me.
-        </p>
-
-    </div>
-
-</div>
 
 <script src="script.js"></script>
 
