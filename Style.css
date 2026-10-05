@@ -1,453 +1,254 @@
 ```css
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+/* ==========================
+   STORY MODE SECTIONS
+========================== */
+
+#story-container{
+    width:100%;
 }
 
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:'Poppins',sans-serif;
-    background:
-    linear-gradient(
-        180deg,
-        #050816,
-        #0b1023,
-        #050816
-    );
-    color:white;
-    overflow-x:hidden;
-}
-
-/* =========================
-   STARS
-========================= */
-
-#stars{
-    position:fixed;
-    inset:0;
-    z-index:-3;
-
-    background:
-    radial-gradient(white 1px, transparent 1px),
-    radial-gradient(#ffd7e7 1px, transparent 1px);
-
-    background-size:
-    90px 90px,
-    150px 150px;
-
-    opacity:.35;
-}
-
-/* =========================
-   FLOATING HEARTS
-========================= */
-
-#hearts-container{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:-1;
-}
-
-.heart{
-    position:absolute;
-    color:#ff7aa2;
-    animation:floatHeart linear forwards;
-}
-
-@keyframes floatHeart{
-
-    from{
-        transform:translateY(0);
-        opacity:1;
-    }
-
-    to{
-        transform:translateY(-120vh);
-        opacity:0;
-    }
-}
-
-/* =========================
-   MUSIC BUTTON
-========================= */
-
-.music-btn{
-    position:fixed;
-    top:20px;
-    right:20px;
-
-    width:60px;
-    height:60px;
-
-    border:none;
-    border-radius:50%;
-
-    background:
-    linear-gradient(
-        45deg,
-        #ff7aa2,
-        #f7c57c
-    );
-
-    color:white;
-    font-size:24px;
-    cursor:pointer;
-
-    z-index:9999;
-
-    box-shadow:
-    0 0 20px rgba(255,122,162,.6);
-}
-
-.music-btn:hover{
-    transform:scale(1.08);
-}
-
-/* =========================
-   INTRO SCREEN
-========================= */
-
-.intro-screen{
+.scene{
     min-height:100vh;
 
-    display:flex;
+    display:none;
+
+    flex-direction:column;
+
     justify-content:center;
+
     align-items:center;
 
     text-align:center;
-    padding:30px;
+
+    padding:40px;
+
+    animation:fadeScene 1s ease;
 }
 
-.intro-content{
-    max-width:850px;
+.active-scene{
+    display:flex;
 }
 
-.intro-small{
+@keyframes fadeScene{
+
+    from{
+        opacity:0;
+        transform:scale(.96);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+
+}
+
+/* ==========================
+   TITLES
+========================== */
+
+.scene h1{
+
+    font-size:4rem;
+
     color:#f7c57c;
-    letter-spacing:5px;
+
+    margin-bottom:20px;
+
+    font-family:'Cinzel',serif;
+}
+
+.scene h2{
+
+    font-size:2rem;
+
+    color:#ff9ebd;
+
     margin-bottom:20px;
 }
 
-.intro-title{
-    font-size:5rem;
-    font-family:'Cinzel',serif;
-    color:white;
-}
+.scene p{
 
-.intro-name{
-    margin-top:20px;
-    color:#ff9ebd;
-    font-size:2.4rem;
-}
+    max-width:800px;
 
-.intro-text{
-    margin-top:25px;
-    line-height:1.9;
+    line-height:2;
+
     color:#ddd;
+
+    font-size:1.1rem;
 }
 
-/* =========================
+/* ==========================
    BUTTON
-========================= */
+========================== */
 
-.main-btn{
-    margin-top:35px;
+.next-btn,
+#finalBtn{
 
-    padding:
-    16px 40px;
+    margin-top:40px;
 
     border:none;
-    border-radius:50px;
 
     cursor:pointer;
 
-    background:
-    linear-gradient(
-        45deg,
-        #ff7aa2,
-        #f7c57c
-    );
+    padding:16px 40px;
+
+    border-radius:50px;
 
     color:white;
 
     font-size:18px;
-    font-weight:600;
+
+    background:
+    linear-gradient(
+        45deg,
+        #ff7aa2,
+        #f7c57c
+    );
 
     transition:.3s;
 }
 
-.main-btn:hover{
+.next-btn:hover,
+#finalBtn:hover{
+
     transform:translateY(-4px);
 }
 
-/* =========================
-   HIDDEN
-========================= */
+/* ==========================
+   PHOTOS
+========================== */
 
-.hidden{
-    display:none;
-}
+.story-photo{
 
-/* =========================
-   HERO
-========================= */
+    width:320px;
 
-.hero-section{
-    min-height:90vh;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    text-align:center;
-
-    padding:50px 20px;
-}
-
-.hero-content{
-    max-width:900px;
-}
-
-.birthday-title{
-    font-size:5rem;
-    font-family:'Cinzel',serif;
-    color:#f7c57c;
-}
-
-.name-title{
-    font-size:3rem;
-    margin-top:15px;
-}
-
-.hero-message{
-    margin-top:20px;
-    font-size:1.2rem;
-    color:#ddd;
-    line-height:1.8;
-}
-
-/* =========================
-   GLASS EFFECT
-========================= */
-
-.glass-card{
-    background:
-    rgba(255,255,255,.08);
-
-    backdrop-filter:
-    blur(15px);
-
-    border:
-    1px solid rgba(255,255,255,.12);
-
-    border-radius:25px;
-}
-
-/* =========================
-   COUNTERS
-========================= */
-
-.counters{
-    max-width:1100px;
-    margin:30px auto;
-
-    display:flex;
-    justify-content:center;
-    gap:20px;
-
-    flex-wrap:wrap;
-
-    padding:30px;
-}
-
-.counter-box{
-    min-width:220px;
-    text-align:center;
-}
-
-.counter-box h3{
-    color:#f7c57c;
-    margin-bottom:10px;
-}
-
-.counter-box span{
-    font-size:2rem;
-    font-weight:bold;
-}
-
-/* =========================
-   SECTION TITLES
-========================= */
-
-.section-title{
-    text-align:center;
-
-    font-size:3rem;
-    font-family:'Cinzel',serif;
-
-    color:#f7c57c;
-
-    margin-bottom:50px;
-}
-
-/* =========================
-   TIMELINE
-========================= */
-
-.timeline-section{
-    padding:100px 20px;
-}
-
-.timeline{
-    max-width:900px;
-    margin:auto;
-}
-
-.timeline-item{
-    background:
-    rgba(255,255,255,.06);
-
-    padding:25px;
-    border-radius:20px;
-
-    margin-bottom:25px;
-
-    transition:.3s;
-}
-
-.timeline-item:hover{
-    transform:translateY(-5px);
-}
-
-.timeline-item h3{
-    color:#ff9ebd;
-    margin-bottom:10px;
-}
-
-.timeline-item p{
-    line-height:1.8;
-}
-
-.highlight{
-    color:#ff9ebd;
-    font-size:1.3rem;
-    font-weight:bold;
-    text-align:center;
-    margin-top:15px;
-}
-
-/* =========================
-   GALLERY
-========================= */
-
-.gallery-section{
-    padding:100px 20px;
-}
-
-.gallery-grid{
-    max-width:1200px;
-
-    margin:auto;
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(
-        auto-fit,
-        minmax(280px,1fr)
-    );
-
-    gap:25px;
-}
-
-.gallery-card{
-
-    overflow:hidden;
+    max-width:90vw;
 
     border-radius:25px;
 
-    background:
-    rgba(255,255,255,.08);
+    box-shadow:
+    0 0 40px
+    rgba(255,122,162,.4);
 
-    transition:.4s;
-}
+    margin-bottom:30px;
 
-.gallery-card:hover{
-    transform:
-    translateY(-8px)
-    scale(1.02);
-}
-
-.gallery-card img{
-    width:100%;
-    height:420px;
-    object-fit:cover;
-}
-
-.gallery-caption{
-    padding:18px;
-    text-align:center;
-}
-
-/* =========================
-   SCROLL ANIMATION
-========================= */
-
-.gallery-card,
-.timeline-item,
-.counter-box{
     animation:
-    fadeUp 1s ease;
+    photoReveal 1.2s ease;
 }
 
-@keyframes fadeUp{
+.wallpaper-photo{
+
+    width:380px;
+
+    max-width:90vw;
+
+    border-radius:25px;
+
+    box-shadow:
+    0 0 50px
+    rgba(247,197,124,.5);
+
+    margin-bottom:30px;
+
+    animation:
+    photoReveal 1.5s ease;
+}
+
+@keyframes photoReveal{
 
     from{
+
         opacity:0;
+
         transform:
-        translateY(40px);
+        scale(.8)
+        rotate(-3deg);
+
     }
 
     to{
+
         opacity:1;
+
         transform:
-        translateY(0);
+        scale(1)
+        rotate(0);
+
     }
 }
 
-/* =========================
+/* ==========================
+   QUOTES
+========================== */
+
+blockquote{
+
+    max-width:700px;
+
+    font-size:1.5rem;
+
+    font-style:italic;
+
+    color:#ffd7e7;
+
+    line-height:1.8;
+}
+
+/* ==========================
+   LETTER
+========================== */
+
+#typewriter{
+
+    max-width:850px;
+
+    text-align:left;
+
+    padding:30px;
+
+    background:
+    rgba(255,255,255,.08);
+
+    border-radius:25px;
+
+    line-height:2;
+
+    font-size:1.1rem;
+
+    min-height:250px;
+}
+
+/* ==========================
+   WALLPAPER TEXT
+========================== */
+
+.wallpaper-text{
+
+    font-size:1.3rem;
+
+    color:#ffd7e7;
+
+    max-width:700px;
+}
+
+/* ==========================
    MOBILE
-========================= */
+========================== */
 
 @media(max-width:768px){
 
-    .intro-title{
-        font-size:2.8rem;
+    .scene h1{
+        font-size:2.3rem;
     }
 
-    .birthday-title{
-        font-size:2.8rem;
+    .scene h2{
+        font-size:1.4rem;
     }
 
-    .name-title{
-        font-size:2rem;
+    blockquote{
+        font-size:1.1rem;
     }
 
-    .section-title{
-        font-size:2rem;
-    }
-
-    .gallery-card img{
-        height:350px;
-    }
-
-    .counter-box{
-        width:100%;
-    }
 }
 ```
