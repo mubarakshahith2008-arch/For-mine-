@@ -1,149 +1,216 @@
-```javascript id="s6o7t2"
-// =====================================
-// STORY MODE BIRTHDAY WEBSITE
-// =====================================
+/* =========================================
+   BIRTHDAY STORY EXPERIENCE
+========================================= */
 
-// ---------- ELEMENTS ----------
+
+/* =========================================
+   ELEMENTS
+========================================= */
 
 const scenes =
-document.querySelectorAll(".scene");
+    document.querySelectorAll(".scene");
 
 const nextButtons =
-document.querySelectorAll(".next-btn");
+    document.querySelectorAll(".next-btn");
 
 const finalBtn =
-document.getElementById("finalBtn");
-
-const bgMusic =
-document.getElementById("bgMusic");
-
-const musicToggle =
-document.getElementById("musicToggle");
+    document.getElementById("finalBtn");
 
 const enterBtn =
-document.getElementById("enterBtn");
+    document.getElementById("enterBtn");
 
 const introScreen =
-document.getElementById("intro-screen");
+    document.getElementById("intro-screen");
 
-const mainContent =
-document.getElementById("story-container");
+const storyContainer =
+    document.getElementById("story-container");
+
+const bgMusic =
+    document.getElementById("bgMusic");
+
+const musicToggle =
+    document.getElementById("musicToggle");
+
+const heartsContainer =
+    document.getElementById("hearts-container");
+
+const starsContainer =
+    document.getElementById("stars");
+
+const typewriter =
+    document.getElementById("typewriter");
+
 
 let currentScene = 0;
+
 let musicPlaying = false;
 
-// =====================================
-// ENTER WEBSITE
-// =====================================
 
-if(enterBtn){
+/* =========================================
+   CREATE STARS
+========================================= */
+
+function createStars() {
+
+    if (!starsContainer) return;
+
+    for (let i = 0; i < 120; i++) {
+
+        const star =
+            document.createElement("div");
+
+        star.className = "star";
+
+        star.style.left =
+            Math.random() * 100 + "%";
+
+        star.style.top =
+            Math.random() * 100 + "%";
+
+        star.style.animationDelay =
+            Math.random() * 3 + "s";
+
+        star.style.animationDuration =
+            (2 + Math.random() * 4) + "s";
+
+        starsContainer.appendChild(star);
+    }
+}
+
+createStars();
+
+
+/* =========================================
+   ENTER WEBSITE
+========================================= */
+
+if (enterBtn) {
 
     enterBtn.addEventListener(
         "click",
         () => {
 
-            introScreen.style.opacity =
-            "0";
+            if (bgMusic) {
+
+                bgMusic.volume = 0.35;
+
+                bgMusic
+                    .play()
+                    .then(() => {
+
+                        musicPlaying = true;
+
+                        musicToggle.innerHTML =
+                            "🎵";
+
+                    })
+                    .catch(() => {
+
+                        musicPlaying = false;
+
+                    });
+            }
+
+
+            introScreen.style.opacity = "0";
+
+            introScreen.style.visibility =
+                "hidden";
+
 
             setTimeout(() => {
 
                 introScreen.style.display =
-                "none";
+                    "none";
 
-                mainContent.classList.remove(
+                storyContainer.classList.remove(
                     "hidden"
                 );
 
-            },700);
+                showScene(0);
 
-            bgMusic.play()
-            .then(() => {
-
-                musicPlaying = true;
-
-            })
-            .catch(() => {});
+            }, 900);
 
         }
     );
 
 }
 
-// =====================================
-// MUSIC TOGGLE
-// =====================================
 
-if(musicToggle){
+/* =========================================
+   MUSIC TOGGLE
+========================================= */
+
+if (musicToggle) {
 
     musicToggle.addEventListener(
         "click",
         () => {
 
-            if(musicPlaying){
+            if (!bgMusic) return;
+
+
+            if (musicPlaying) {
 
                 bgMusic.pause();
 
                 musicPlaying = false;
 
                 musicToggle.innerHTML =
-                "🔇";
+                    "🔇";
 
-            }else{
+            }
 
-                bgMusic.play();
+            else {
 
-                musicPlaying = true;
+                bgMusic
+                    .play()
+                    .then(() => {
 
-                musicToggle.innerHTML =
-                "🎵";
+                        musicPlaying = true;
+
+                        musicToggle.innerHTML =
+                            "🎵";
+
+                    })
+                    .catch(() => {});
 
             }
 
         }
     );
-
 }
 
-// =====================================
-// SCENE NAVIGATION
-// =====================================
 
-function showScene(index){
+/* =========================================
+   SHOW SCENE
+========================================= */
 
-    scenes.forEach(scene => {
+function showScene(index) {
 
-        scene.classList.remove(
-            "active-scene"
-        );
+    if (
+        index < 0 ||
+        index >= scenes.length
+    ) {
+        return;
+    }
 
-    });
 
-    scenes[index].classList.add(
-        "active-scene"
-    );
+    scenes.forEach(
+        (scene, i) => {
 
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
+            scene.classList.remove(
+                "active-scene"
+            );
 
-}
+            scene.classList.remove(
+                "exit-scene"
+            );
 
-nextButtons.forEach(button => {
+            if (i < index) {
 
-    button.addEventListener(
-        "click",
-        () => {
-
-            currentScene++;
-
-            if(
-                currentScene <
-                scenes.length
-            ){
-
-                showScene(
-                    currentScene
+                scene.classList.add(
+                    "exit-scene"
                 );
 
             }
@@ -151,16 +218,88 @@ nextButtons.forEach(button => {
         }
     );
 
-});
 
-// =====================================
-// TYPEWRITER LETTER
-// =====================================
+    currentScene = index;
 
-const typewriter =
-document.getElementById(
-    "typewriter"
+
+    setTimeout(() => {
+
+        scenes[index].classList.add(
+            "active-scene"
+        );
+
+    }, 50);
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+
+    /* Start letter automatically */
+
+    if (index === 6) {
+
+        setTimeout(
+            startTyping,
+            700
+        );
+
+    }
+
+
+    /* Extra hearts on special scenes */
+
+    if (
+        index === 2 ||
+        index === 6 ||
+        index === 8
+    ) {
+
+        createBurstHearts();
+
+    }
+
+}
+
+
+/* =========================================
+   NEXT BUTTONS
+========================================= */
+
+nextButtons.forEach(
+    button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                const nextIndex =
+                    currentScene + 1;
+
+
+                if (
+                    nextIndex <
+                    scenes.length
+                ) {
+
+                    showScene(
+                        nextIndex
+                    );
+
+                }
+
+            }
+        );
+
+    }
 );
+
+
+/* =========================================
+   TYPEWRITER
+========================================= */
 
 const letter =
 
@@ -168,8 +307,7 @@ const letter =
 
 We met as strangers on Instagram.
 
-At that time,
-neither of us knew
+At that time, neither of us knew
 how important that first conversation
 would become.
 
@@ -194,8 +332,7 @@ to have you in my life.
 People often search
 for the perfect definition of love.
 
-For me,
-it is simple.
+For me, it is simple.
 
 Your presence is enough for me.
 
@@ -209,332 +346,468 @@ Happy Birthday ❤️
 
 — [YOUR_NAME]`;
 
-let letterIndex = 0;
 
-function startTyping(){
+let letterStarted = false;
 
-    if(!typewriter) return;
+
+function startTyping() {
+
+    if (!typewriter) return;
+
+    if (letterStarted) return;
+
+    letterStarted = true;
 
     typewriter.innerHTML = "";
 
-    letterIndex = 0;
+    let index = 0;
 
-    function type(){
 
-        if(
-            letterIndex <
-            letter.length
-        ){
+    function type() {
 
-            typewriter.innerHTML +=
-            letter.charAt(
-                letterIndex
-            );
+        if (index < letter.length) {
 
-            letterIndex++;
+            typewriter.textContent +=
+                letter.charAt(index);
+
+            index++;
 
             setTimeout(
                 type,
-                35
+                32
             );
 
         }
 
     }
+
 
     type();
 }
 
-// start when scene 7 opens
 
-const observer =
-new MutationObserver(() => {
+/* =========================================
+   FLOATING HEARTS
+========================================= */
 
-    if(
-        scenes[6] &&
-        scenes[6].classList.contains(
-            "active-scene"
-        )
-    ){
+function createHeart() {
 
-        if(
-            typewriter.innerHTML === ""
-        ){
-            startTyping();
-        }
+    if (!heartsContainer) return;
 
-    }
 
-});
+    const heart =
+        document.createElement("div");
 
-observer.observe(
-    document.body,
-    {
-        attributes:true,
-        subtree:true
-    }
-);
+    heart.className =
+        "heart";
 
-// =====================================
-// PHOTO ANIMATION
-// =====================================
 
-const photos =
-document.querySelectorAll(
-    ".story-photo, .wallpaper-photo"
-);
+    const hearts = [
+        "❤️",
+        "💕",
+        "💗",
+        "💖",
+        "💘"
+    ];
 
-photos.forEach(photo => {
 
-    photo.addEventListener(
-        "click",
+    heart.innerHTML =
+        hearts[
+            Math.floor(
+                Math.random() *
+                hearts.length
+            )
+        ];
+
+
+    heart.style.left =
+        Math.random() * 100 + "vw";
+
+
+    heart.style.fontSize =
+        (16 + Math.random() * 25) + "px";
+
+
+    heart.style.animationDuration =
+        (5 + Math.random() * 5) + "s";
+
+
+    heart.style.animationDelay =
+        Math.random() + "s";
+
+
+    heartsContainer.appendChild(
+        heart
+    );
+
+
+    setTimeout(
         () => {
 
-            const overlay =
+            heart.remove();
+
+        },
+        11000
+    );
+}
+
+
+setInterval(
+    createHeart,
+    700
+);
+
+
+/* =========================================
+   HEART BURST
+========================================= */
+
+function createBurstHearts() {
+
+    if (!heartsContainer) return;
+
+
+    for (
+        let i = 0;
+        i < 15;
+        i++
+    ) {
+
+        setTimeout(
+            createHeart,
+            i * 100
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   PHOTO FULLSCREEN
+========================================= */
+
+const photos =
+    document.querySelectorAll(
+        ".story-photo, .wallpaper-photo"
+    );
+
+
+photos.forEach(
+    photo => {
+
+        photo.addEventListener(
+            "click",
+            () => {
+
+                const overlay =
+                    document.createElement(
+                        "div"
+                    );
+
+                overlay.className =
+                    "photo-overlay";
+
+
+                const img =
+                    document.createElement(
+                        "img"
+                    );
+
+                img.src =
+                    photo.src;
+
+
+                overlay.appendChild(
+                    img
+                );
+
+
+                document.body.appendChild(
+                    overlay
+                );
+
+
+                overlay.addEventListener(
+                    "click",
+                    () => {
+
+                        overlay.remove();
+
+                    }
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================
+   FIREWORK CREATION
+========================================= */
+
+function createFirework(
+    container
+) {
+
+    const centerX =
+        Math.random() * 80 + 10;
+
+    const centerY =
+        Math.random() * 60 + 15;
+
+
+    for (
+        let i = 0;
+        i < 35;
+        i++
+    ) {
+
+        const particle =
             document.createElement(
                 "div"
             );
 
-            overlay.style.position =
-            "fixed";
+        particle.className =
+            "firework";
 
-            overlay.style.inset =
-            "0";
 
-            overlay.style.background =
-            "rgba(0,0,0,.95)";
+        particle.style.left =
+            centerX + "%";
 
-            overlay.style.display =
-            "flex";
+        particle.style.top =
+            centerY + "%";
 
-            overlay.style.justifyContent =
-            "center";
 
-            overlay.style.alignItems =
-            "center";
+        const angle =
+            Math.random() *
+            Math.PI *
+            2;
 
-            overlay.style.zIndex =
-            "99999";
 
-            const img =
-            document.createElement(
-                "img"
-            );
+        const distance =
+            60 +
+            Math.random() *
+            180;
 
-            img.src =
-            photo.src;
 
-            img.style.maxWidth =
-            "90%";
+        particle.style.setProperty(
+            "--x",
+            Math.cos(angle) *
+            distance +
+            "px"
+        );
 
-            img.style.maxHeight =
-            "90%";
 
-            img.style.borderRadius =
-            "20px";
+        particle.style.setProperty(
+            "--y",
+            Math.sin(angle) *
+            distance +
+            "px"
+        );
 
-            overlay.appendChild(
-                img
-            );
 
-            document.body.appendChild(
-                overlay
-            );
+        particle.style.animationDelay =
+            Math.random() * .5 +
+            "s";
 
-            overlay.addEventListener(
-                "click",
-                () => {
 
-                    overlay.remove();
+        container.appendChild(
+            particle
+        );
 
-                }
-            );
 
-        }
-    );
+        setTimeout(
+            () => {
 
-});
+                particle.remove();
 
-// =====================================
-// FLOATING HEARTS
-// =====================================
+            },
+            2200
+        );
 
-const heartContainer =
-document.getElementById(
-    "hearts-container"
-);
-
-function createHeart(){
-
-    if(!heartContainer) return;
-
-    const heart =
-    document.createElement("div");
-
-    heart.classList.add(
-        "heart"
-    );
-
-    heart.innerHTML =
-    Math.random() > 0.5
-    ? "❤️"
-    : "💕";
-
-    heart.style.left =
-    Math.random()*100 +
-    "vw";
-
-    heart.style.bottom =
-    "-30px";
-
-    heart.style.fontSize =
-    (18 + Math.random()*22)
-    + "px";
-
-    heart.style.animationDuration =
-    (5 + Math.random()*4)
-    + "s";
-
-    heartContainer.appendChild(
-        heart
-    );
-
-    setTimeout(() => {
-
-        heart.remove();
-
-    },10000);
+    }
 
 }
 
-setInterval(
-    createHeart,
-    400
-);
 
-// =====================================
-// FIREWORKS
-// =====================================
+/* =========================================
+   FINAL SURPRISE
+========================================= */
 
-function launchFireworks(){
+function launchFinalSurprise() {
 
     const overlay =
-    document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
-    overlay.style.position =
-    "fixed";
 
-    overlay.style.inset =
-    "0";
+    overlay.className =
+        "final-overlay";
 
-    overlay.style.background =
-    "rgba(0,0,0,.95)";
 
-    overlay.style.display =
-    "flex";
+    overlay.innerHTML = `
 
-    overlay.style.flexDirection =
-    "column";
+        <div class="final-content">
 
-    overlay.style.justifyContent =
-    "center";
+            <div style="
+                font-size:70px;
+                animation:heartBeat 1.5s infinite;
+            ">
+                ❤️
+            </div>
 
-    overlay.style.alignItems =
-    "center";
+            <h1>
+                Happy Birthday
+            </h1>
 
-    overlay.style.textAlign =
-    "center";
+            <h2>
+                [HER_NAME]
+            </h2>
 
-    overlay.style.zIndex =
-    "999999";
+            <p>
+                If I could give you one thing
+                today...
 
-    overlay.innerHTML =
+                <br><br>
 
-    `
-    <h1 style="
-    color:#f7c57c;
-    font-size:4rem;
-    margin-bottom:20px;">
-    🎆 Happy Birthday 🎆
-    </h1>
+                I would give you the ability
+                to see yourself through my eyes.
 
-    <h2 style="
-    color:#ff9ebd;">
-    [HER_NAME]
-    </h2>
+                <br><br>
 
-    <p style="
-    max-width:700px;
-    margin-top:25px;
-    line-height:2;
-    color:white;">
-    Thank you for being
-    one of the most beautiful
-    parts of my life.
+                Then you would understand
+                just how special you are to me.
+            </p>
 
-    Your presence
-    is enough for me ❤️
-    </p>
+            <p style="
+                color:#f7c57c;
+                font-family:Cinzel,serif;
+                font-size:1.2rem;
+            ">
+                You are my favourite chapter. ❤️
+            </p>
+
+        </div>
+
     `;
+
 
     document.body.appendChild(
         overlay
     );
 
-    for(
-        let i=0;
-        i<200;
-        i++
-    ){
 
-        const sparkle =
-        document.createElement(
-            "div"
+    /* Fireworks continuously */
+
+    const fireworks =
+        setInterval(
+            () => {
+
+                createFirework(
+                    overlay
+                );
+
+            },
+            650
         );
 
-        sparkle.innerHTML =
-        "✨";
 
-        sparkle.style.position =
-        "fixed";
+    /* Heart burst */
 
-        sparkle.style.left =
-        Math.random()*100 +
-        "vw";
+    for (
+        let i = 0;
+        i < 40;
+        i++
+    ) {
 
-        sparkle.style.top =
-        Math.random()*100 +
-        "vh";
-
-        sparkle.style.fontSize =
-        (10 + Math.random()*25)
-        + "px";
-
-        sparkle.style.zIndex =
-        "1000000";
-
-        document.body.appendChild(
-            sparkle
+        setTimeout(
+            createHeart,
+            i * 100
         );
 
     }
 
-}
 
-if(finalBtn){
+    /* Stop creating fireworks later */
 
-    finalBtn.addEventListener(
-        "click",
-        launchFireworks
+    setTimeout(
+        () => {
+
+            clearInterval(
+                fireworks
+            );
+
+        },
+        15000
     );
 
 }
 
-// =====================================
-// CONSOLE MESSAGE
-// =====================================
+
+if (finalBtn) {
+
+    finalBtn.addEventListener(
+        "click",
+        launchFinalSurprise
+    );
+
+}
+
+
+/* =========================================
+   KEYBOARD SUPPORT
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "ArrowRight" ||
+            event.key === "Enter"
+        ) {
+
+            if (
+                currentScene <
+                scenes.length - 1
+            ) {
+
+                showScene(
+                    currentScene + 1
+                );
+
+            }
+
+        }
+
+        if (
+            event.key === "ArrowLeft"
+        ) {
+
+            if (
+                currentScene > 0
+            ) {
+
+                showScene(
+                    currentScene - 1
+                );
+
+            }
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   CONSOLE
+========================================= */
 
 console.log(
-"Happy Birthday ❤️"
+    "❤️ Birthday Story Loaded Successfully ❤️"
 );
-```
